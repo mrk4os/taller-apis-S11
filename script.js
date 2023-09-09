@@ -20,7 +20,7 @@ function generateQuote() {
 
             const optionsList = document.createElement('div');
             optionsList.innerHTML = `
-            <h1>Por una caja de bombones...¿Quien dijo esa frase?</h1>
+            <h2>Por una caja de bombones...¿Quien dijo esa frase?</h2>
                 <label class="options">
                     <input type="radio" name="radio" value="Walter White">
                     <span class="checkmark"></span>
@@ -77,7 +77,7 @@ function generateQuote() {
                     The fly
                 </label>
                 
-                <button type="button" class="btn btn-dark" id="answerButton">ANSWER</button>`;;
+                <button type="button" class="btn btn-success" id="answerButton">ANSWER</button>`;;
 
             optionsContainer.appendChild(optionsList);
 
@@ -89,6 +89,28 @@ function generateQuote() {
         });
 }
 
+const failImgs = [
+    '<img src="imgs/fail1.jpg" alt="fail1">',
+    '<img src="imgs/fail2.jpg" alt="fail2">',
+    '<img src="imgs/fail3.jpg" alt="fail3">',
+    '<img src="imgs/fail4.jpg" alt="fail4">',
+    '<img src="imgs/fail5.jpg" alt="fail5">',
+    '<img src="imgs/fail6.jpg" alt="fail6">',
+    '<img src="imgs/fail7.gif" alt="fail7">',
+    '<img src="imgs/fail8.gif" alt="fail8">'
+];
+//En un futuro quizas agregue mas imagenes, asi como agregar mas frases. 
+const successImgs = [
+    '<img src="imgs/success1.jpg" alt="success1">',
+    '<img src="imgs/success2.jpg" alt="success2">',
+    '<img src="imgs/success3.jpg" alt="success3">',
+    '<img src="imgs/success4.jpg" alt="success4">',
+    '<img src="imgs/success5.jpg" alt="success5">',
+    '<img src="imgs/success6.jpg" alt="success6">',
+    '<img src="imgs/success7.jpg" alt="success7">',
+    '<img src="imgs/success8.jpg" alt="success8">'
+]
+
 function checkAnswer() {
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     let selectedAnswer = '';
@@ -98,17 +120,27 @@ function checkAnswer() {
             selectedAnswer = radioButton.value;
         }
     });
-
-    console.log("selectedAnswer:", selectedAnswer);
-    console.log("currentQuote.author:", currentQuote.author); // Utilizar la cita almacenada
+    /*
+        console.log("selectedAnswer:", selectedAnswer);
+        console.log("currentQuote.author:", currentQuote.author)
+    */
 
     const messageElement = document.getElementById('message');
+    const imgAnswer = document.getElementById('img-answer');
 
     if (selectedAnswer === currentQuote.author) {
         messageElement.textContent = '¡Respuesta correcta!';
+        const randomIndexSuccess = Math.floor(Math.random() * successImgs.length);
+        const randomImageSuccess = successImgs[randomIndexSuccess];
+        imgAnswer.innerHTML = randomImageSuccess;
+
     } else {
         messageElement.textContent = 'Respuesta incorrecta. Inténtalo de nuevo.';
+        const randomIndexFail = Math.floor(Math.random() * failImgs.length);
+        const randomImageFail = failImgs[randomIndexFail];
+        imgAnswer.innerHTML = randomImageFail;
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', generateQuote);
